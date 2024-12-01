@@ -83,16 +83,23 @@ def calculate_pmi(house_cost, pmi_rate=0.005, downpayment=0):
     return pmi
       
 
-def create_df_matrix(ar1, ar2, ar3, ar4, ar5, ar6,
-                       nm1, nm2, nm3, nm4, nm5, nm6):
+def create_df_matrix(list_of_arrays, list_of_names):
+    """Creates a dataframe with all combinations of values in input arrays.
     
-    ar1_2, ar2_2, ar3_2, ar4_2, ar5_2, ar6_2 = pd.core.reshape.util.cartesian_product(
-                                                [ar1, ar2, ar3, ar4, ar5, ar6])
-
-    matrix = pd.DataFrame(dict(ar1=ar1_2, ar2=ar2_2, ar3=ar3_2, ar4=ar4_2,ar5 = ar5_2, ar6 = ar6_2))
-
-    matrix = matrix.rename(columns=
-                           {"ar1": nm1, "ar2": nm2, "ar3": nm3, 
-                            "ar4": nm4, "ar5": nm5, "ar6": nm6})
+    Args:
+        list_of_arrays (list): A list of arrays containing values.
+        
+        list_of_names (list): A list of strings.
+            Become the column headers for the final dataframe
+    Returns:
+      The monthly property tax payment.
+    """ 
+    
+    # Reshape the given arrays to repeat as needed to allow all combinations
+    reshaped_arrays = pd.core.reshape.util.cartesian_product(list_of_arrays)
+    
+    # Place reshaped arrays into a dataframe and name the columns based on the
+    # input list-of-names
+    matrix = pd.DataFrame(dict(zip(list_of_names,reshaped_arrays)))
     
     return matrix

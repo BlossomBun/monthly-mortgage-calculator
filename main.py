@@ -8,6 +8,7 @@ Created on Thu Nov 21 10:05:34 2024
 from baseFunctions import *
 from plotFunctions import *
 import numpy as np
+import pandas as pd #remove when returning to function
 
 house_cost = np.arange(250_000,360_000,10_000)
 
@@ -21,11 +22,13 @@ property_tax_rate = np.arange(.010, .011, .001)
 
 pmi_rate = np.arange(0.005,0.02,0.005)
 
+list_of_arrays = [house_cost, downpayment, interest_rate,
+                             loan_term_years, property_tax_rate, pmi_rate]
 
-matrix = create_df_matrix(house_cost, downpayment, interest_rate,
-                             loan_term_years, property_tax_rate, pmi_rate,
-                            "Condo Cost","Downpayment","Interest Rate",
-                             "Term","Prop Tax Rate","PMI Rate")
+list_of_names = ["Condo Cost","Downpayment","Interest Rate",
+                             "Term","Prop Tax Rate","PMI Rate"]
+
+matrix = create_df_matrix(list_of_arrays, list_of_names)
 
 
 maintenance_rate = 1.0 / 100

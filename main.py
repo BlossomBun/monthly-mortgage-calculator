@@ -22,7 +22,7 @@ property_tax_rate = np.arange(.010, .011, .001)
 pmi_rate = np.arange(0.005,0.02,0.005)
 
 
-matrix = create_df_matrix_6(house_cost, downpayment, interest_rate,
+matrix = create_df_matrix(house_cost, downpayment, interest_rate,
                              loan_term_years, property_tax_rate, pmi_rate,
                             "Condo Cost","Downpayment","Interest Rate",
                              "Term","Prop Tax Rate","PMI Rate")

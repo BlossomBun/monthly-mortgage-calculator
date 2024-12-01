@@ -83,7 +83,7 @@ def calculate_pmi(house_cost, pmi_rate=0.005, downpayment=0):
     return pmi
       
 
-def create_df_matrix_6(ar1, ar2, ar3, ar4, ar5, ar6,
+def create_df_matrix(ar1, ar2, ar3, ar4, ar5, ar6,
                        nm1, nm2, nm3, nm4, nm5, nm6):
     
     ar1_2, ar2_2, ar3_2, ar4_2, ar5_2, ar6_2 = pd.core.reshape.util.cartesian_product(

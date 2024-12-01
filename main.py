@@ -5,8 +5,8 @@ Created on Thu Nov 21 10:05:34 2024
 @author: 12aan
 """
 
-from mortgage import *
-import numpy_financial as npf
+from baseFunctions import *
+from plotFunctions import *
 import numpy as np
 
 house_cost = np.arange(250_000,360_000,10_000)
@@ -78,43 +78,8 @@ matrix["Condo Value at 4%"] = -1 * matrix.apply(lambda row: npf.fv(.04/12,
 matrix["Rent Cost"] = matrix["Invested Cash at 6%"] - matrix["Total Rent with 1% Increases"]
 matrix["Buy Cost"] = matrix["Condo Value at 4%"] - matrix["Total Mortgage Payments"]
 matrix["Buying Cost minus Renting Cost"] = matrix["Buy Cost"] - matrix["Rent Cost"]
-import seaborn as sns
 
 matrix["Cost (k)"] = matrix["Condo Cost"]/1000
-def facetGridPlot(df, sortingVariableCol, 
-                  xVariable, yVariable, colorVariable, sortingVariableRow,
-                  sharex = False, sharey = True, legend_out = True,
-                  aspect = 1, col_wrap = 2, height = 3, palette = "viridis",
-                  save = False
-                  ):
-    sns.set_style("ticks",{'axes.grid' : True})
-    g = sns.FacetGrid(df, 
-                      col = sortingVariableCol,
-                      row = sortingVariableRow,
-                      hue = colorVariable,
-                      palette = palette,
-                      aspect = aspect,
-                      height = height,
-                      sharex = sharex,
-                      sharey = sharey,
-                      legend_out = legend_out,
-                      #alpha = alpha
-                      )
-    #sns.color_palette(palette='viridis')
-    g.map(sns.scatterplot, xVariable, yVariable)
-    g.set_axis_labels(xVariable, yVariable)
-    g.set_xticklabels(rotation = 45)
-    g.add_legend()
-    g.refline(y=1600)
-    g.refline(y=2300)
-
-    if save == True:
-        
-        g.savefig("facetgridplot_by_" + sortingVariableCol + "-" + sortingVariableRow 
-                    + "_showing_" + colorVariable
-                    + "_xy_" + xVariable + "_" + yVariable,bbox_inches='tight')
-    return
-
 
 facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", "Downpayment", "PMI Rate", save = True)
 facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", "Prop Tax Rate", "Downpayment", save=True)

@@ -10,20 +10,10 @@ from plotFunctions import *
 import numpy as np
 import pandas as pd #remove when returning to function
 
-house_cost = np.arange(250_000,360_000,10_000)
 
-downpayment = np.arange(40_000,70_000,10_000)
 
-interest_rate = np.arange(700, 800, 25) / (10_000)
-
-loan_term_years = np.arange(30, 40, 10)
-
-property_tax_rate = np.arange(.010, .011, .001)
-
-pmi_rate = np.arange(0.005,0.02,0.005)
-
-list_of_arrays = [house_cost, downpayment, interest_rate,
-                             loan_term_years, property_tax_rate, pmi_rate]
+# Create an input array
+list_of_arrays = input_array()
 
 list_of_names = ["Condo Cost","Downpayment","Interest Rate",
                              "Term","Prop Tax Rate","PMI Rate"]

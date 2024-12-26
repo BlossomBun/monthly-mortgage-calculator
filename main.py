@@ -7,7 +7,7 @@ Created on Thu Nov 21 10:05:34 2024
 
 from baseFunctions import *
 from plotFunctions import *
-import numpy as np
+from userInputFunctions import *
 import pandas as pd #remove when returning to function
 
 
@@ -74,5 +74,5 @@ matrix["Buying Cost minus Renting Cost"] = matrix["Buy Cost"] - matrix["Rent Cos
 
 matrix["Cost (k)"] = matrix["Condo Cost"]/1000
 
-facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", "Downpayment", "PMI Rate", save = True)
-facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", "Prop Tax Rate", "Downpayment", save=True)
+#facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", "Downpayment", "PMI Rate", save = True)
+#facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", "Prop Tax Rate", "Downpayment", save=True)

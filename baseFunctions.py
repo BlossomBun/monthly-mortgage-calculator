@@ -91,6 +91,7 @@ def create_df_matrix(list_of_arrays, list_of_names):
         
         list_of_names (list): A list of strings.
             Become the column headers for the final dataframe
+            
     Returns:
       The monthly property tax payment.
     """ 
@@ -101,5 +102,56 @@ def create_df_matrix(list_of_arrays, list_of_names):
     # Place reshaped arrays into a dataframe and name the columns based on the
     # input list-of-names
     matrix = pd.DataFrame(dict(zip(list_of_names,reshaped_arrays)))
+    
+    return matrix
+
+
+def add_columns_matrix(matrix):
+    """Adds additional values to the data matrix based on initial inputs
+    
+    Args:
+        DataFrame with the following columns names:
+            "Condo Cost"
+            "Downpayment"
+            "Property Tax Rate"
+            "PMI Rate"
+            "Loan Term"
+            "Interest Rate"
+          
+    Returns:
+      DataFrame with many more column names:
+          
+    """ 
+    maintenance_rate = 1.0 / 100
+    
+    matrix["Maintenance"] = matrix["Condo Cost"] * maintenance_rate / 12
+    
+    matrix["Loan Amount"] = matrix["Condo Cost"] - matrix["Downpayment"]
+    
+    matrix["Monthly Tax"] = calculate_property_tax(
+                                matrix["Condo Cost"], 
+                                matrix["Property Tax Rate"]
+                                )
+    
+    matrix["Monthly Tax"] = matrix.apply(lambda row: row['Condo Cost'] * row['Property Tax Rate'] / 12, axis=1)
+    
+    matrix["Monthly PMI"] = matrix.apply(lambda row: 0 if (row['Downpayment'] >= (0.2 * row['Condo Cost'])) else
+                                              row['Condo Cost'] * row['Pmi Rate'] / 12, axis=1)
+    
+    
+    matrix["Mortgage"] = matrix.apply(lambda row: -1 * npf.pmt((row["Interest Rate"]/12), 
+                                                          (row["Loan Term"] * 12), 
+                                                           row["Loan Amount"]
+                                                          ), axis=1)
+    
+    matrix["Total Monthly Payment"] = matrix["Mortgage"] + matrix["Monthly Tax"] + matrix["Maintenance"] + matrix["Monthly PMI"]
+    
+    matrix["Payment without PMI"] = matrix["Mortgage"] + matrix["Monthly Tax"] + matrix["Maintenance"]
+    
+    matrix["Total Mortgage Payments"] = (matrix["Mortgage"]+matrix["Monthly Tax"]+matrix["Maintenance"]) * matrix["Loan Term"] * 12
+    
+    matrix["Total Interest Payments"] = matrix["Total Mortgage Payments"] - matrix["Condo Cost"]
+    
+    matrix["Cost (k)"] = matrix["Condo Cost"]/1000
     
     return matrix

@@ -24,5 +24,7 @@ matrix = add_columns_matrix(matrix)
 
 
 
-facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", "Downpayment", "Pmi Rate", save = True)
-#facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", "Property Tax Rate", "Downpayment", save=True)
+facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", \
+              "Downpayment", "Pmi Rate", save = True)
+facetGridPlot(matrix, "Interest Rate", "Cost (k)", "Total Monthly Payment", \
+              "Property Tax Rate", "Downpayment", save=True)

@@ -9,12 +9,12 @@ import numpy as np
 
 def input_array():
     default_ranges = {
-        "condo_cost": (250000, 360000, 10000, "$"),
-        "downpayment": (40000, 70000, 10000, "$"),
-        "interest_rate": (7.0, 8.0, 0.25, "%"),
-        "loan_term": (20, 40, 10, " years"),
-        "property_tax_rate": (1.0, 1.1, 0.1, "%"),
-        "pmi_rate": (0.5, 2.0, 0.5, "%"),
+        "condo_cost": (250000, 400000, 10000, "$"),
+        "downpayment": (30000, 80000, 10000, "$"),
+        "interest_rate": (6.25, 7.5, 0.25, "%"),
+        "loan_term": (30, 30, 10, " years"),
+        "property_tax_rate": (1.0, 1.0, 0.1, "%"),
+        "pmi_rate": (0.5, 1.5, 0.5, "%"),
     }
 
     # Get user inputs
